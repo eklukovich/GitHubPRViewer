@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_graph"
+            app:startDestination="@id/pullRequestFragment">
+
+    <fragment
+        android:id="@+id/pullRequestFragment"
+        android:name="com.eklukovich.githubprviewer.ui.pull_request.PullRequestFragment"
+        tools:layout="@layout/pull_request_fragment">
+
+        <action
+            android:id="@+id/showFiles"
+            app:destination="@id/filesFragment"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.eklukovich.githubprviewer.ui.files.FilesFragment"
+        tools:layout="@layout/files_fragment">
+        <action
+            android:id="@+id/showDiff"
+            app:destination="@id/fileDiffFragment"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fileDiffFragment"
+        android:name="com.eklukovich.githubprviewer.ui.diff.FileDiffFragment"
+
+        tools:layout="@layout/file_diff_fragment">
+        <action
+            android:id="@+id/showFiles"
+            app:destination="@id/filesFragment"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+
+</navigation>
