@@ -4,59 +4,56 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.eklukovich.githubprviewer.R;
+import com.eklukovich.githubprviewer.databinding.PullRequestFragmentBinding;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class PullRequestFragment extends Fragment
    {
-
-      private PullRequestViewModel mViewModel;
-
-      public static PullRequestFragment newInstance()
-         {
-            return new PullRequestFragment();
-         }
-
-
-      @Override
-      public void onActivityCreated(@Nullable Bundle savedInstanceState)
-         {
-            super.onActivityCreated(savedInstanceState);
-            mViewModel = ViewModelProviders.of(this).get(PullRequestViewModel.class);
-            // TODO: Use the ViewModel
-
-
-         }
+      private PullRequestFragmentBinding binding;
 
 
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                @Nullable Bundle savedInstanceState)
          {
-            View view = inflater.inflate(R.layout.pull_request_fragment, container, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.pull_request_fragment, container, false);
+            View view = binding.getRoot();
 
-            Button button = view.findViewById(R.id.next_button);
-
-
-            button.setOnClickListener(new View.OnClickListener()
-               {
-                  @Override public void onClick(View view)
-                     {
-                        NavDirections action = PullRequestFragmentDirections.showFiles();
-
-                        Navigation.findNavController(view).navigate(action);
-                     }
-               });
-
+            //here data must be an instance of the class MarsDataProvider
+            initializeRecyclerView(view.findViewById(R.id.recycler_view));
 
             return view;
+         }
+
+      @Override
+      public void onActivityCreated(@Nullable Bundle savedInstanceState)
+         {
+            super.onActivityCreated(savedInstanceState);
+            PullRequestViewModel mViewModel = ViewModelProviders.of(this).get(PullRequestViewModel.class);
+            binding.setViewModel(mViewModel);
+         }
+
+
+      private void initializeRecyclerView(RecyclerView recyclerView)
+         {
+            PullRequestAdapter adapter = new PullRequestAdapter(new ArrayList<>(), (view, pullRequest) -> Navigation.findNavController(view).navigate(PullRequestFragmentDirections.showFiles()));
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setOrientation(RecyclerView.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+
+            recyclerView.setAdapter(adapter);
          }
    }

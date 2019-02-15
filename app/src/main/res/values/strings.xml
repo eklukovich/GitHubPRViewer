@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GitHub PR Viewer</string>
+
+
+    <string name="pull_request_num">#%d</string>
+    <string name="pull_request_date">opened %s by %s</string>
+
+
+
 </resources>
