@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.eklukovich.githubprviewer.R;
-import com.eklukovich.githubprviewer.databinding.PullRequestFragmentBinding;
+import com.eklukovich.githubprviewer.databinding.FragmentPullRequestBinding;
 
 import java.util.ArrayList;
 
@@ -21,14 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PullRequestFragment extends Fragment
    {
-      private PullRequestFragmentBinding binding;
+      private FragmentPullRequestBinding binding;
 
 
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                @Nullable Bundle savedInstanceState)
          {
-            binding = DataBindingUtil.inflate(inflater, R.layout.pull_request_fragment, container, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pull_request, container, false);
             View view = binding.getRoot();
 
             //here data must be an instance of the class MarsDataProvider
@@ -48,7 +48,7 @@ public class PullRequestFragment extends Fragment
 
       private void initializeRecyclerView(RecyclerView recyclerView)
          {
-            PullRequestAdapter adapter = new PullRequestAdapter(new ArrayList<>(), (view, pullRequest) -> Navigation.findNavController(view).navigate(PullRequestFragmentDirections.showFiles()));
+            PullRequestAdapter adapter = new PullRequestAdapter(new ArrayList<>(), (view, pullRequest) -> Navigation.findNavController(view).navigate(PullRequestFragmentDirections.showFiles(pullRequest.getNumber())));
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setOrientation(RecyclerView.VERTICAL);

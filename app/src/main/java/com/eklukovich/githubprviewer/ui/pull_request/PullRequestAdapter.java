@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.eklukovich.githubprviewer.R;
 import com.eklukovich.githubprviewer.data.model.PullRequest;
+import com.eklukovich.githubprviewer.ui.common.RecyclerItemClickListener;
 
 import java.util.Calendar;
 import java.util.List;
@@ -19,9 +20,9 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
    {
       private List<PullRequest> pullRequestList;
 
-      private PullRequestItemClickListener clickListener;
+      private RecyclerItemClickListener<PullRequest> clickListener;
 
-      PullRequestAdapter(List<PullRequest> gifList, @NonNull PullRequestItemClickListener clickListener)
+      PullRequestAdapter(List<PullRequest> gifList, @NonNull RecyclerItemClickListener<PullRequest> clickListener)
          {
             this.pullRequestList = gifList;
             this.clickListener = clickListener;
@@ -90,11 +91,5 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
                      clickListener.onPullRequestItemClicked(view1, pr);
                   });
                }
-         }
-
-
-      public interface PullRequestItemClickListener
-         {
-            void onPullRequestItemClicked(View view, PullRequest pullRequest);
          }
    }

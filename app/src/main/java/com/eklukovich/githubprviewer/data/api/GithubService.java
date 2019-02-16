@@ -1,6 +1,7 @@
 package com.eklukovich.githubprviewer.data.api;
 
 import com.eklukovich.githubprviewer.data.model.PullRequest;
+import com.eklukovich.githubprviewer.data.model.PullRequestFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -55,6 +56,14 @@ public class GithubService
       public Single<List<PullRequest>> doPullRequestApiCall(String owner, String repo)
          {
             return requestInterface.getPullRequests(owner, repo)
+                       .observeOn(AndroidSchedulers.mainThread())
+                       .subscribeOn(Schedulers.io());
+         }
+
+
+      public Single<List<PullRequestFile>> doPullRequestApiCall(String owner, String repo, int prNum)
+         {
+            return requestInterface.getPullRequestFiles(owner, repo, prNum)
                        .observeOn(AndroidSchedulers.mainThread())
                        .subscribeOn(Schedulers.io());
          }

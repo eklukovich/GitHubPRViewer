@@ -47,5 +47,4 @@ public class PullRequestViewModel extends ViewModel
                   e.printStackTrace();
                }
          };
-
    }

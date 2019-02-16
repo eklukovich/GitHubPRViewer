@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/pullRequestFragment"
         android:name="com.eklukovich.githubprviewer.ui.pull_request.PullRequestFragment"
-        tools:layout="@layout/pull_request_fragment">
+        tools:layout="@layout/fragment_pull_request">
 
         <action
             android:id="@+id/showFiles"
@@ -25,7 +25,12 @@
     <fragment
         android:id="@+id/filesFragment"
         android:name="com.eklukovich.githubprviewer.ui.files.FilesFragment"
-        tools:layout="@layout/files_fragment">
+        tools:layout="@layout/fragment_files">
+
+        <argument
+            android:name="pullRequestNumber"
+            app:argType="integer"/>
+
         <action
             android:id="@+id/showDiff"
             app:destination="@id/fileDiffFragment"
@@ -34,14 +39,19 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
 
     <fragment
         android:id="@+id/fileDiffFragment"
         android:name="com.eklukovich.githubprviewer.ui.diff.FileDiffFragment"
+        tools:layout="@layout/fragment_file_diff">
 
-        tools:layout="@layout/file_diff_fragment">
+        <argument
+            android:name="patchData"
+            app:argType="string"/>
+
         <action
             android:id="@+id/showFiles"
             app:destination="@id/filesFragment"

@@ -1,6 +1,7 @@
 package com.eklukovich.githubprviewer.data.api;
 
 import com.eklukovich.githubprviewer.data.model.PullRequest;
+import com.eklukovich.githubprviewer.data.model.PullRequestFile;
 
 import java.util.List;
 
@@ -13,10 +14,6 @@ public interface GithubRequestInterface
       @GET("repos/{owner}/{repo}/pulls")
       Single<List<PullRequest>> getPullRequests(@Path("owner") String owner, @Path("repo") String name);
 
-
-//      @GET("v1/gifs/trending")
-//      Single<GiphyResponse> getTrendingGIFs(@Query("api_key") String apiKey, @Query("limit") int limit, @Query("offset") int offset);
-//
-//      @GET("v1/gifs/search")
-//      Single<GiphyResponse> searchGIFs(@Query("api_key") String apiKey, @Query("q") String searchTerm, @Query("limit") int limit, @Query("offset") int offset);
+      @GET("repos/{owner}/{repo}/pulls/{pr_num}/files")
+      Single<List<PullRequestFile>> getPullRequestFiles(@Path("owner") String owner, @Path("repo") String name, @Path("pr_num") int pullRequestNum);
    }

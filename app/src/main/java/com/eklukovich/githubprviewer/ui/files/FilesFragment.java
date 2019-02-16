@@ -4,56 +4,64 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.eklukovich.githubprviewer.R;
+import com.eklukovich.githubprviewer.databinding.FragmentFilesBinding;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FilesFragment extends Fragment
    {
 
-      private FilesViewModel mViewModel;
+      private FragmentFilesBinding binding;
 
-      public static FilesFragment newInstance()
-         {
-            return new FilesFragment();
-         }
+      private int pullRequestNumber;
 
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                @Nullable Bundle savedInstanceState)
          {
-            View view = inflater.inflate(R.layout.files_fragment, container, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_files, container, false);
+            View view = binding.getRoot();
 
-            Button button = view.findViewById(R.id.next_button);
-
-
-            button.setOnClickListener(new View.OnClickListener()
+            if (getArguments() != null)
                {
-                  @Override public void onClick(View view)
-                     {
-                        NavDirections action = FilesFragmentDirections.showDiff();
+                  FilesFragmentArgs args = FilesFragmentArgs.fromBundle(getArguments());
+                  pullRequestNumber = args.getPullRequestNumber();
+               }
 
-                        Navigation.findNavController(view).navigate(action);
-                     }
-               });
-
+            initializeRecyclerView(view.findViewById(R.id.recycler_view));
 
             return view;
          }
+
 
       @Override
       public void onActivityCreated(@Nullable Bundle savedInstanceState)
          {
             super.onActivityCreated(savedInstanceState);
-            mViewModel = ViewModelProviders.of(this).get(FilesViewModel.class);
-            // TODO: Use the ViewModel
+            FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(pullRequestNumber)).get(FilesViewModel.class);
+            binding.setViewModel(mViewModel);
          }
 
+
+      private void initializeRecyclerView(RecyclerView recyclerView)
+         {
+            PullRequestFilesAdapter adapter = new PullRequestFilesAdapter(new ArrayList<>(), (view, file) -> Navigation.findNavController(view).navigate(FilesFragmentDirections.showDiff(file.getPatch())));
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setOrientation(RecyclerView.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+
+            recyclerView.setAdapter(adapter);
+         }
    }
