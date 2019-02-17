@@ -24,7 +24,7 @@ public class FilesFragment extends Fragment
 
       private FragmentFilesBinding binding;
 
-      private int pullRequestNumber;
+
 
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,11 +33,6 @@ public class FilesFragment extends Fragment
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_files, container, false);
             View view = binding.getRoot();
 
-            if (getArguments() != null)
-               {
-                  FilesFragmentArgs args = FilesFragmentArgs.fromBundle(getArguments());
-                  pullRequestNumber = args.getPullRequestNumber();
-               }
 
             initializeRecyclerView(view.findViewById(R.id.recycler_view));
 
@@ -49,14 +44,21 @@ public class FilesFragment extends Fragment
       public void onActivityCreated(@Nullable Bundle savedInstanceState)
          {
             super.onActivityCreated(savedInstanceState);
-            FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(pullRequestNumber)).get(FilesViewModel.class);
-            binding.setViewModel(mViewModel);
+
+            if (getArguments() != null)
+               {
+                  FilesFragmentArgs args = FilesFragmentArgs.fromBundle(getArguments());
+                  int pullRequestNumber = args.getPullRequestNumber();
+
+                  FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(pullRequestNumber)).get(FilesViewModel.class);
+                  binding.setViewModel(mViewModel);
+               }
          }
 
 
       private void initializeRecyclerView(RecyclerView recyclerView)
          {
-            PullRequestFilesAdapter adapter = new PullRequestFilesAdapter(new ArrayList<>(), (view, file) -> Navigation.findNavController(view).navigate(FilesFragmentDirections.showDiff(file.getPatch())));
+            PullRequestFilesAdapter adapter = new PullRequestFilesAdapter(new ArrayList<>(), (view, file) -> Navigation.findNavController(view).navigate(FilesFragmentDirections.showDiff(file.getPatch(), file.getFilename())));
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setOrientation(RecyclerView.VERTICAL);

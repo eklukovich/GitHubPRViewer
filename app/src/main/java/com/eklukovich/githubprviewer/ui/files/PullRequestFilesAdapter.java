@@ -62,17 +62,17 @@ public class PullRequestFilesAdapter extends RecyclerView.Adapter<PullRequestFil
 
             int textColor;
 
-            if (status.toLowerCase().equals("added"))
+            switch (status.toLowerCase())
                {
-                  textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusAdded);
-               }
-            else if (status.toLowerCase().equals("deleted"))
-               {
-                  textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusDeleted);
-               }
-            else
-               {
-                  textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusModified);
+                  case "added":
+                     textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusAdded);
+                     break;
+                  case "deleted":
+                     textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusDeleted);
+                     break;
+                  default:
+                     textColor = ContextCompat.getColor(holder.itemView.getContext(), R.color.fileStatusModified);
+                     break;
                }
 
             holder.tvFileStatus.setText(status);
@@ -87,14 +87,14 @@ public class PullRequestFilesAdapter extends RecyclerView.Adapter<PullRequestFil
          }
 
 
-      public class ViewHolder extends RecyclerView.ViewHolder
+      class ViewHolder extends RecyclerView.ViewHolder
          {
             TextView tvFilename;
             TextView tvFileChanges;
             TextView tvFileStatus;
 
 
-            public ViewHolder(View view)
+            ViewHolder(View view)
                {
                   super(view);
 

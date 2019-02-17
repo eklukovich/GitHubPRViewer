@@ -23,6 +23,7 @@ public class FilesViewModel extends ViewModel
             getPullRequestFiles(pullRequestNumber);
          }
 
+
       private void getPullRequestFiles(int pullRequestNumber)
          {
             githubService.doPullRequestApiCall("pomber", "git-history", pullRequestNumber).subscribe(observer);

@@ -48,7 +48,7 @@ public class PullRequestFragment extends Fragment
 
       private void initializeRecyclerView(RecyclerView recyclerView)
          {
-            PullRequestAdapter adapter = new PullRequestAdapter(new ArrayList<>(), (view, pullRequest) -> Navigation.findNavController(view).navigate(PullRequestFragmentDirections.showFiles(pullRequest.getNumber())));
+            PullRequestAdapter adapter = new PullRequestAdapter(new ArrayList<>(), (view, pullRequest) -> Navigation.findNavController(view).navigate(PullRequestFragmentDirections.showFiles(pullRequest.getNumber(), pullRequest.getTitle())));
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setOrientation(RecyclerView.VERTICAL);
