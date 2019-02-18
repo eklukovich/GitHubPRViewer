@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.eklukovich.githubprviewer.R;
 import com.eklukovich.githubprviewer.data.model.PullRequestFile;
+import com.eklukovich.githubprviewer.ui.common.BindableAdapter;
 import com.eklukovich.githubprviewer.ui.common.RecyclerItemClickListener;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PullRequestFilesAdapter extends RecyclerView.Adapter<PullRequestFilesAdapter.ViewHolder>
+public class PullRequestFilesAdapter extends RecyclerView.Adapter<PullRequestFilesAdapter.ViewHolder> implements BindableAdapter<List<PullRequestFile>>
    {
       private List<PullRequestFile> pullRequestFilesList;
 
@@ -29,10 +30,10 @@ public class PullRequestFilesAdapter extends RecyclerView.Adapter<PullRequestFil
          }
 
 
+      @Override
       public void setData(List<PullRequestFile> data)
          {
             this.pullRequestFilesList = data;
-
             notifyDataSetChanged();
          }
 

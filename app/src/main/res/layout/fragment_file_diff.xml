@@ -19,7 +19,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/background_border"
         android:padding="1dp"
-        app:adapter_diff="@{viewModel.fileDiffList}"/>
+        app:adapter="@{viewModel.fileDiffList}"/>
 
 
 </layout>

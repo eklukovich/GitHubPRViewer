@@ -67,7 +67,6 @@ public class FileDiffViewModel extends ViewModel
             List<Line> lines = hunk.getLines();
 
 
-
             while (lineIndex < lines.size())
                {
                   Line line = lines.get(lineIndex);

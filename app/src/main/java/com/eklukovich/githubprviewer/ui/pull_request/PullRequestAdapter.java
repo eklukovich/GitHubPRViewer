@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.eklukovich.githubprviewer.R;
 import com.eklukovich.githubprviewer.data.model.PullRequest;
+import com.eklukovich.githubprviewer.ui.common.BindableAdapter;
 import com.eklukovich.githubprviewer.ui.common.RecyclerItemClickListener;
 
 import java.util.Calendar;
@@ -16,7 +17,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.ViewHolder>
+public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.ViewHolder> implements BindableAdapter<List<PullRequest>>
    {
       private List<PullRequest> pullRequestList;
 
@@ -29,6 +30,7 @@ public class PullRequestAdapter extends RecyclerView.Adapter<PullRequestAdapter.
          }
 
 
+      @Override
       public void setData(List<PullRequest> data)
          {
             this.pullRequestList = data;

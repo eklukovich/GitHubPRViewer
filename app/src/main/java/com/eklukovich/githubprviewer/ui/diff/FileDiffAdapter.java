@@ -9,6 +9,7 @@ import com.eklukovich.githubprviewer.R;
 import com.eklukovich.githubprviewer.data.model.DiffDisplayItem;
 import com.eklukovich.githubprviewer.data.model.DiffHeader;
 import com.eklukovich.githubprviewer.data.model.DiffLine;
+import com.eklukovich.githubprviewer.ui.common.BindableAdapter;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FileDiffAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class FileDiffAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements BindableAdapter<List<DiffDisplayItem>>
    {
       private static final int TYPE_HEADER = 0;
       private static final int TYPE_ITEM = 1;
@@ -33,6 +34,7 @@ public class FileDiffAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          }
 
 
+      @Override
       public void setData(List<DiffDisplayItem> data)
          {
             this.diffDisplayItemList = data;
