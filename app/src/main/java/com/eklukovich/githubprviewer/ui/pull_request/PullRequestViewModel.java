@@ -2,6 +2,7 @@ package com.eklukovich.githubprviewer.ui.pull_request;
 
 import com.eklukovich.githubprviewer.data.api.GithubService;
 import com.eklukovich.githubprviewer.data.model.PullRequest;
+import com.eklukovich.githubprviewer.utils.Constants;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class PullRequestViewModel extends ViewModel
 
       private void getPullRequests()
          {
-            githubService.doPullRequestApiCall("pomber", "git-history").subscribe(observer);
+            githubService.doPullRequestApiCall(Constants.GITHUB_REPO_OWNER, Constants.GITHUB_REPO).subscribe(observer);
          }
 
 

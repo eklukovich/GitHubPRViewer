@@ -6,18 +6,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class FilesViewModelFactory implements ViewModelProvider.Factory
    {
-      private int prNumber;
+      private FilesFragmentArgs args;
 
 
-      public FilesViewModelFactory(int prNumber)
+      public FilesViewModelFactory(FilesFragmentArgs args)
          {
-            this.prNumber = prNumber;
+            this.args = args;
          }
 
       @Override
       @NonNull
       public <T extends ViewModel> T create(@NonNull Class<T> modelClass)
          {
-            return (T) new FilesViewModel(prNumber);
+            return (T) new FilesViewModel(args);
          }
    }

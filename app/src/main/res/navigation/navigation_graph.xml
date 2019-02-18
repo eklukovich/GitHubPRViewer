@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/pullRequestFragment"
         android:name="com.eklukovich.githubprviewer.ui.pull_request.PullRequestFragment"
-        android:label="@string/app_name"
+        android:label="@string/fragment_title_pull_requests"
         tools:layout="@layout/fragment_pull_request">
 
         <action
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/filesFragment"
         android:name="com.eklukovich.githubprviewer.ui.files.FilesFragment"
-        android:label="{pullRequestTitle}"
+        android:label="@string/fragment_title_files"
         tools:layout="@layout/fragment_files">
 
         <argument

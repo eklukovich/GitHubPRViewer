@@ -2,11 +2,13 @@ package com.eklukovich.githubprviewer.ui.files;
 
 import com.eklukovich.githubprviewer.data.api.GithubService;
 import com.eklukovich.githubprviewer.data.model.PullRequestFile;
+import com.eklukovich.githubprviewer.utils.Constants;
 
 import java.util.List;
 
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.SingleObserver;
@@ -17,18 +19,23 @@ public class FilesViewModel extends ViewModel
       private GithubService githubService = GithubService.getInstance();
 
       public final ObservableList<PullRequestFile> pullRequestFilesList = new ObservableArrayList<>();
+
+      public final ObservableField<String>  pullRequestTitle = new ObservableField<>();
+
       public final ObservableBoolean isLoading = new ObservableBoolean(true);
 
 
-      public FilesViewModel(int pullRequestNumber)
+      public FilesViewModel(FilesFragmentArgs args)
          {
-            getPullRequestFiles(pullRequestNumber);
+            getPullRequestFiles(args.getPullRequestNumber());
+
+            pullRequestTitle.set(args.getPullRequestTitle());
          }
 
 
       private void getPullRequestFiles(int pullRequestNumber)
          {
-            githubService.doPullRequestApiCall("pomber", "git-history", pullRequestNumber).subscribe(observer);
+            githubService.doPullRequestApiCall(Constants.GITHUB_REPO_OWNER, Constants.GITHUB_REPO, pullRequestNumber).subscribe(observer);
          }
 
 

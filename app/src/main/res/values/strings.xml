@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">GitHub PR Viewer</string>
 
+    <string name="fragment_title_pull_requests">Pull Requests</string>
+    <string name="fragment_title_files">Files</string>
+
 
     <string name="pull_request_num">#%d</string>
     <string name="pull_request_date">opened %s by %s</string>
 
     <string name="pull_request_file_changes">%d changes: <![CDATA[<font color=\'#137A13\'>+%d</font>/<font color=\'#AD2424\'>-%d</font>]]></string>
+
+    <string name="pull_request_title">Repository: %s</string>
+    <string name="files_title">Pull Request: %s</string>
 
 </resources>

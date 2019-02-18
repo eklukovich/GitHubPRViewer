@@ -31,9 +31,8 @@ public class FilesFragment extends Fragment
             if (getArguments() != null)
                {
                   FilesFragmentArgs args = FilesFragmentArgs.fromBundle(getArguments());
-                  int pullRequestNumber = args.getPullRequestNumber();
 
-                  FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(pullRequestNumber)).get(FilesViewModel.class);
+                  FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(args)).get(FilesViewModel.class);
                   binding.setViewModel(mViewModel);
                }
 
