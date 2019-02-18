@@ -10,18 +10,21 @@ import com.eklukovich.githubprviewer.utils.parser.Patch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class FileDiffViewModel extends ViewModel
    {
       public final ObservableList<DiffDisplayItem> fileDiffList = new ObservableArrayList<>();
+
+      public final ObservableBoolean isLoading = new ObservableBoolean(true);
 
 
       public FileDiffViewModel(String patchData)
@@ -33,25 +36,32 @@ public class FileDiffViewModel extends ViewModel
       private void createDiffDisplayList(String patchData)
          {
             Single.fromCallable(() -> parsePatchData(patchData))
+                .delay(500, TimeUnit.MILLISECONDS) // add delay for fragment animation
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((Consumer<List<DiffDisplayItem>>) fileDiffList::addAll);
+                .subscribe(this::updateUI);
+         }
+
+      private void updateUI(List<DiffDisplayItem> diffDisplayItems)
+         {
+            fileDiffList.addAll(diffDisplayItems);
+            isLoading.set(false);
          }
 
 
-         private List<DiffDisplayItem> parsePatchData(String patchData)
-            {
-               Patch patch = GitPatchParser.parsePatchString(patchData);
+      private List<DiffDisplayItem> parsePatchData(String patchData)
+         {
+            Patch patch = GitPatchParser.parsePatchString(patchData);
 
-               List<DiffDisplayItem> diffDisplayItems = new ArrayList<>();
+            List<DiffDisplayItem> diffDisplayItems = new ArrayList<>();
 
-               for (Hunk hunk : patch.getHunks())
-                  {
-                     parseHunk(hunk, diffDisplayItems);
-                  }
+            for (Hunk hunk : patch.getHunks())
+               {
+                  parseHunk(hunk, diffDisplayItems);
+               }
 
-               return diffDisplayItems;
-            }
+            return diffDisplayItems;
+         }
 
 
       private void parseHunk(Hunk hunk, List<DiffDisplayItem> diffDisplayItems)

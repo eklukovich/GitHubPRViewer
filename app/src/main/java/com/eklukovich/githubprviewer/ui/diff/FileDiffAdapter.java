@@ -15,6 +15,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams;
 import androidx.core.text.PrecomputedTextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,11 +68,11 @@ public class FileDiffAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             if (item.getType() == DiffDisplayItem.ViewType.HEADER)
                {
-                  ((ViewHolderHeader) holder).setData((DiffHeader)item);
+                  ((ViewHolderHeader) holder).setData((DiffHeader) item);
                }
             else if (item.getType() == DiffDisplayItem.ViewType.LINE)
                {
-                  ((ViewHolderLine) holder).setData((DiffLine)item);
+                  ((ViewHolderLine) holder).setData((DiffLine) item);
                }
          }
 
@@ -149,6 +150,11 @@ public class FileDiffAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         tvUpdatedFileNum.setBackgroundColor(0xFFCDFFD8);
                         tvUpdatedFileLine.setBackgroundColor(0xFFE6FFED);
                      }
+
+
+                  // set the height to the of the longer text to wrap and the other to match constraints
+                  tvOriginalFileLine.getLayoutParams().height = originalLine.length() > updatedLine.length() ? LayoutParams.WRAP_CONTENT : LayoutParams.MATCH_CONSTRAINT;
+                  tvUpdatedFileLine.getLayoutParams().height = originalLine.length() > updatedLine.length() ? LayoutParams.MATCH_CONSTRAINT : LayoutParams.WRAP_CONTENT;
 
 
                   tvOriginalFileNum.setTextFuture(PrecomputedTextCompat.getTextFuture(

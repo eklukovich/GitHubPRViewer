@@ -5,6 +5,7 @@ import com.eklukovich.githubprviewer.data.model.PullRequestFile;
 import com.eklukovich.githubprviewer.utils.Constants;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
@@ -35,7 +36,9 @@ public class FilesViewModel extends ViewModel
 
       private void getPullRequestFiles(int pullRequestNumber)
          {
-            githubService.doPullRequestApiCall(Constants.GITHUB_REPO_OWNER, Constants.GITHUB_REPO, pullRequestNumber).subscribe(observer);
+            githubService.doPullRequestApiCall(Constants.GITHUB_REPO_OWNER, Constants.GITHUB_REPO, pullRequestNumber)
+                .delay(500, TimeUnit.MILLISECONDS) // add delay for fragment animation
+                .subscribe(observer);
          }
 
 
