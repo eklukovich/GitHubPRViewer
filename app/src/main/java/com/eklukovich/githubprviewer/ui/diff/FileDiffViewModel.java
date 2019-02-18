@@ -3,6 +3,7 @@ package com.eklukovich.githubprviewer.ui.diff;
 import com.eklukovich.githubprviewer.data.model.DiffDisplayItem;
 import com.eklukovich.githubprviewer.data.model.DiffHeader;
 import com.eklukovich.githubprviewer.data.model.DiffLine;
+import com.eklukovich.githubprviewer.utils.Constants;
 import com.eklukovich.githubprviewer.utils.parser.GitPatchParser;
 import com.eklukovich.githubprviewer.utils.parser.Hunk;
 import com.eklukovich.githubprviewer.utils.parser.Line;
@@ -36,7 +37,7 @@ public class FileDiffViewModel extends ViewModel
       private void createDiffDisplayList(String patchData)
          {
             Single.fromCallable(() -> parsePatchData(patchData))
-                .delay(500, TimeUnit.MILLISECONDS) // add delay for fragment animation
+                .delay(Constants.FRAGMENT_ANIMATION_TIME_MS, TimeUnit.MILLISECONDS) // add delay for fragment animation
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateUI);

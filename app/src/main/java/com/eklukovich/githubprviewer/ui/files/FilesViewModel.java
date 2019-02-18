@@ -37,7 +37,7 @@ public class FilesViewModel extends ViewModel
       private void getPullRequestFiles(int pullRequestNumber)
          {
             githubService.doPullRequestApiCall(Constants.GITHUB_REPO_OWNER, Constants.GITHUB_REPO, pullRequestNumber)
-                .delay(500, TimeUnit.MILLISECONDS) // add delay for fragment animation
+                .delay(Constants.FRAGMENT_ANIMATION_TIME_MS, TimeUnit.MILLISECONDS) // add delay for fragment animation
                 .subscribe(observer);
          }
 
