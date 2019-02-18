@@ -6,6 +6,7 @@ import com.eklukovich.githubprviewer.data.model.PullRequest;
 import java.util.List;
 
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.SingleObserver;
@@ -16,6 +17,8 @@ public class PullRequestViewModel extends ViewModel
       private GithubService githubService = GithubService.getInstance();
 
       public final ObservableList<PullRequest> pullRequestsList = new ObservableArrayList<>();
+
+      public final ObservableBoolean isLoading = new ObservableBoolean(true);
 
 
       public PullRequestViewModel()
@@ -35,6 +38,8 @@ public class PullRequestViewModel extends ViewModel
                {
                   pullRequestsList.clear();
                   pullRequestsList.addAll(value);
+
+                  isLoading.set(false);
                }
 
             @Override public void onSubscribe(Disposable d)

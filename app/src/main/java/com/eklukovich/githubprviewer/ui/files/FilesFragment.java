@@ -21,29 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FilesFragment extends Fragment
    {
-
-      private FragmentFilesBinding binding;
-
-
-
       @Override
       public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                @Nullable Bundle savedInstanceState)
          {
-            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_files, container, false);
+            FragmentFilesBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_files, container, false);
             View view = binding.getRoot();
-
-
-            initializeRecyclerView(view.findViewById(R.id.recycler_view));
-
-            return view;
-         }
-
-
-      @Override
-      public void onActivityCreated(@Nullable Bundle savedInstanceState)
-         {
-            super.onActivityCreated(savedInstanceState);
 
             if (getArguments() != null)
                {
@@ -53,6 +36,10 @@ public class FilesFragment extends Fragment
                   FilesViewModel mViewModel = ViewModelProviders.of(this, new FilesViewModelFactory(pullRequestNumber)).get(FilesViewModel.class);
                   binding.setViewModel(mViewModel);
                }
+
+            initializeRecyclerView(view.findViewById(R.id.recycler_view));
+
+            return view;
          }
 
 
